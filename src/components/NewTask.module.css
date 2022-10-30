@@ -52,3 +52,17 @@ form button:disabled {
 form button svg {
   margin-left: 0.5rem;
 }
+
+@media (max-width: 768px) {
+  .container {
+    margin: -2.8rem auto;
+  }
+
+  form input {
+    width: 70%;
+  }
+
+  form button {
+    width: 30%;
+  }
+}
