@@ -1,0 +1,62 @@
+.task {
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--gray-500);
+  border: 2px solid var(--gray-400);
+  border-radius: 8px;
+}
+
+.task button.check {
+  margin-right: 1rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  background: transparent;
+  border: 2px solid var(--blue);
+  border-radius: 100%;
+  transition: border-color 0.5s;
+}
+
+.task button.check:hover {
+  border: 2px solid var(--blue-dark);
+}
+
+.task button.checked {
+  margin-right: 1rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  background: var(--purple-dark);
+  color: var(--gray-100);
+  border: 0;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.5s;
+}
+
+.task p {
+  width: 100%;
+}
+
+.task p.done {
+  color: var(--gray-300);
+  text-decoration: line-through;
+}
+
+.task button.checked:hover {
+  background: var(--purple);
+}
+
+.task button.trash {
+  margin-left: 1rem;
+  background: transparent;
+  color: var(--gray-300);
+  border: 0;
+}
+
+.task button.trash:hover {
+  color: var(--danger);
+}

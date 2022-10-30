@@ -1,0 +1,45 @@
+.container {
+  margin: 4rem auto;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tasks {
+  color: var(--blue);
+}
+
+.tasks span {
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 20px;
+  color: var(--gray-200);
+  background: var(--gray-400);
+}
+
+.completedTasks {
+  color: var(--purple);
+}
+
+.completedTasks span {
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 20px;
+  color: var(--gray-200);
+  background: var(--gray-400);
+}
+
+.tasksList {
+  width: 100%;
+  margin-top: 2rem;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
