@@ -15,17 +15,7 @@ export function NewTask() {
   const [tasks, setTasks] = useState<Tasks[]>([
     {
       id: uuidv4(),
-      name: 'Estudar HTML, CSS e Javascript',
-      isComplete: true,
-    },
-    {
-      id: uuidv4(),
-      name: 'Estudar conceitos do ReactJS',
-      isComplete: true,
-    },
-    {
-      id: uuidv4(),
-      name: 'Praticar os conceitos do ReacJS com projetos reais',
+      name: 'Exemplo de tarefa',
       isComplete: true,
     },
   ]);
