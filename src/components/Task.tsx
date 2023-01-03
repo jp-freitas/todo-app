@@ -15,7 +15,7 @@ export function Task({ id, name, isComplete, handleCompleteTask, handleDeleteTas
   return (
     <div className={styles.task}>
       <button onClick={() => handleCompleteTask(id)} className={isComplete ? styles.checked : styles.check}>
-        {isComplete && <Check size={15} />}
+        {isComplete && <Check size={16} weight="bold" />}
       </button>
       <p className={isComplete ? styles.done : ''}>{name}</p>
       <button onClick={() => handleDeleteTask(id)} className={styles.trash}>
