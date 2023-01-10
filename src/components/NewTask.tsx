@@ -1,18 +1,13 @@
 import { PlusCircle } from 'phosphor-react';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { TaskType } from '../@types/task';
 
 import styles from './NewTask.module.css'
 import { TasksTable } from './TasksTable';
 
-export type Tasks = {
-  id: string;
-  name: string;
-  isComplete: boolean;
-}
-
 export function NewTask() {
-  const [tasks, setTasks] = useState<Tasks[]>(() => {
+  const [tasks, setTasks] = useState<TaskType[]>(() => {
     const storagedTask = localStorage.getItem('@todo:task-1.0.0')
     if (storagedTask) {
       return JSON.parse(storagedTask)
@@ -21,6 +16,12 @@ export function NewTask() {
   });
   const [newTask, setNewTask] = useState('');
   const isNewTaskEmpty = newTask.length === 0;
+  const updatedTasks = [...tasks]
+
+  useEffect(() => {
+    const stateJSON = JSON.stringify(tasks)
+    localStorage.setItem('@todo:task-1.0.0', stateJSON)
+  }, [tasks])
 
   function handleChangeNewTask(event: ChangeEvent<HTMLInputElement>) {
     setNewTask(event.target.value);
@@ -28,16 +29,17 @@ export function NewTask() {
 
   function handleCreateNewTask(event: FormEvent) {
     event.preventDefault();
-    const task = {
+    const task: TaskType = {
       id: uuidv4(),
       name: newTask,
       isComplete: false,
     }
-    setTasks([task, ...tasks]);
+    updatedTasks.unshift(task)
+    setTasks(updatedTasks);
     setNewTask("");
     localStorage.setItem(
       '@todo:task-1.0.0',
-      JSON.stringify(task),
+      JSON.stringify(updatedTasks),
     )
   }
 

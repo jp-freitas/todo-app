@@ -9,9 +9,8 @@ interface TaskProps {
   handleCompleteTask: (id: string) => void;
   handleDeleteTask: (id: string) => void;
 }
+
 export function Task({ id, name, isComplete, handleCompleteTask, handleDeleteTask }: TaskProps) {
-
-
   return (
     <div className={styles.task}>
       <button onClick={() => handleCompleteTask(id)} className={isComplete ? styles.checked : styles.check}>

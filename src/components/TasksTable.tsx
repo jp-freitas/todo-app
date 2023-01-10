@@ -1,11 +1,11 @@
-import { Tasks } from './NewTask';
+import { TaskType } from '../@types/task';
 import { Task } from './Task';
 import styles from './TasksTable.module.css';
 import { WithoutTasks } from './WithoutTasks';
 
 interface TasksTableProps {
-  tasks: Tasks[];
-  setTasks: React.Dispatch<React.SetStateAction<Tasks[]>>;
+  tasks: TaskType[];
+  setTasks: React.Dispatch<React.SetStateAction<TaskType[]>>;
 }
 
 export function TasksTable({ tasks, setTasks }: TasksTableProps) {
