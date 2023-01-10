@@ -12,13 +12,13 @@ export type Tasks = {
 }
 
 export function NewTask() {
-  const [tasks, setTasks] = useState<Tasks[]>([
-    {
-      id: uuidv4(),
-      name: 'Exemplo de tarefa',
-      isComplete: true,
-    },
-  ]);
+  const [tasks, setTasks] = useState<Tasks[]>(() => {
+    const storagedTask = localStorage.getItem('@todo:task-1.0.0')
+    if (storagedTask) {
+      return JSON.parse(storagedTask)
+    }
+    return [];
+  });
   const [newTask, setNewTask] = useState('');
   const isNewTaskEmpty = newTask.length === 0;
 
@@ -28,12 +28,17 @@ export function NewTask() {
 
   function handleCreateNewTask(event: FormEvent) {
     event.preventDefault();
-    setTasks([{
+    const task = {
       id: uuidv4(),
       name: newTask,
       isComplete: false,
-    }, ...tasks,]);
+    }
+    setTasks([task, ...tasks]);
     setNewTask("");
+    localStorage.setItem(
+      '@todo:task-1.0.0',
+      JSON.stringify(task),
+    )
   }
 
   return (
