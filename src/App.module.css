@@ -1,6 +1,12 @@
 .container {
+  max-height: 100vh;
+}
+
+.containerTable {
   max-width: 70rem;
+  height: 100%;
   margin: 0 auto;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,7 +14,7 @@
 }
 
 @media (max-width: 768px) {
-  .container {
+  .containerTable {
     padding: 1rem;
   }
 }
