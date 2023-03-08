@@ -49,4 +49,5 @@ This project is on MIT license.
 
 ---
 
-Made with ♥ by Rocketseat :wave:
+Made with ♥ by jp-freitas :wave:
+Designed with ♥ by Rocketseat :wave:
