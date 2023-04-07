@@ -10,7 +10,7 @@ interface TasksTableProps {
 
 export function TasksTable({ tasks, setTasks }: TasksTableProps) {
   const completedTasks = tasks.filter(task => task.isComplete === true);
-  const classTasksList = tasks.length < 2 ? styles.noScroll : styles.tasksList;
+  const classTasksList = tasks.length < 3 ? styles.noScroll : styles.tasksList;
 
   function handleCompleteTask(id: string) {
     const completeTask = tasks.map(
