@@ -10,6 +10,7 @@ interface TasksTableProps {
 
 export function TasksTable({ tasks, setTasks }: TasksTableProps) {
   const completedTasks = tasks.filter(task => task.isComplete === true);
+  const classTasksList = tasks.length < 2 ? styles.noScroll : styles.tasksList;
 
   function handleCompleteTask(id: string) {
     const completeTask = tasks.map(
@@ -36,7 +37,7 @@ export function TasksTable({ tasks, setTasks }: TasksTableProps) {
         tasks.length === 0 ?
           <WithoutTasks />
           :
-          <div className={styles.tasksList}>
+          <div className={classTasksList}>
             {
               tasks.map((task) => {
                 return (
