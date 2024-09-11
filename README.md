@@ -1,53 +1,36 @@
-<h1 align="center"> todo </h1>
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-<p align="center">
-A challenge for the students of Ignite. Challenge to fix the concepts of ReactJS.
-</p>
+## Getting Started
 
-<p align="center">
-  <a href="#-tecnologias">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-projeto">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-layout">Layout</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#memo-licença">License</a>
-</p>
+First, run the development server:
 
-<p align="center">
-  <img alt="License" src="https://img.shields.io/static/v1?label=license&message=MIT&color=49AA26&labelColor=000000">
-</p>
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-<br>
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-<p align="center">
-  <img alt="rocketpay" src=".github/todo_2.png" width="100%">
-</p>
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## 🚀 Technologies
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-This project was developed with the following technologies:
+## Learn More
 
-- [ReactJS](https://beta.reactjs.org/)
-- [Typescript](https://www.typescriptlang.org/)
-- [Phosphor Icons](https://phosphoricons.com/)
-- [Node e NPM](https://nodejs.org/)
-- [Vite](https://vitejs.dev/)
+To learn more about Next.js, take a look at the following resources:
 
-## 💻 Project
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-The todo is an application to note tasks to be done. The application has the following features:
-- Create a new task
-- Check and uncheck a task as completed
-- Remove a task from the list
-- Show the progress of completed tasks
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## 🔖 Layout
+## Deploy on Vercel
 
-You can see the project layout btween [this link](https://www.figma.com/file/0n0zDN7zbzhRbaEO74Xesx/ToDo-List/duplicate). It's necessary has an account on [Figma](https://figma.com) to access.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## :memo: License
-
-This project is on MIT license.
-
----
-
-Made with ♥ by jp-freitas :wave:
-Designed with ♥ by Rocketseat :wave:
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
