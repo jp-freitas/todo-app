@@ -72,7 +72,7 @@ export default function Home() {
         {
           todos.map((todo) => {
             return (
-              <div className="w-full flex flex-row items-center gap-4">
+              <div key={todo.id} className="w-full flex flex-row items-center gap-4">
                 <p>{todo.id}</p>
                 <p>{todo.task}</p>
                 <p>{`${todo.is_complete ? true : false}`}</p>
