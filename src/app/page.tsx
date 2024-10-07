@@ -1,7 +1,7 @@
 'use client'
 import { supabase } from "@/lib/supabase";
 import { Todo } from "@/types/todo";
-import { Check, ClipboardText, Trash } from "phosphor-react";
+import { Check, ClipboardText, PlusCircle, Trash } from "phosphor-react";
 import { ChangeEvent, useEffect, useState } from "react";
 
 export default function Home() {
@@ -88,25 +88,44 @@ export default function Home() {
   }
 
   return (
-    <div className="w-9/12 h-screen flex flex-col">
-      <div className="w-full h-1/4 flex justify-between items-center gap-2">
-        <input 
-          name="todo"
-          type="text"
-          placeholder="Enter your task here"
-          className="h-2 py-6 w-full px-2 white-text bg-neutral-700 border-2 border-neutral-700 hover:border-neutral-500 rounded-md"
-          onChange={handleChange}
-          value={todo}
-        />
-        <button 
-          onClick={() => createTodo()}
-          className={`white-text h-2 py-6 px-8 flex justify-center items-center rounded-md bg-neutral-700 ${todo === "" ? "cursor-not-allowed border-2 border-neutral-700 opacity-75" : "hover:border-neutral-500 border-2 border-neutral-700"}`}
-          disabled={todo === ""}
+    <div className="w-full h-screen flex flex-col justify-center items-center">
+      <div
+        className="w-full h-[12.5rem] flex items-center justify-center flex-row bg-neutral-800 z-10"
+      >
+        <h1
+          className="font-bold text-[250%] text-neutral-950"
         >
-          Create
-        </button>
+          to
+          <span
+            className="text-neutral-100"
+          >
+            do
+          </span>
+        </h1>
       </div>
-      <div className="h-3/4 flex flex-col items-start">
+      <div className="w-8/12 h-1/4 -m-7 z-10">
+        <form 
+          onSubmit={createTodo}
+          className="flex justify-between items-center gap-2"
+        >
+          <input 
+            name="todo"
+            type="text"
+            placeholder="Enter your task here"
+            className="h-2 py-6 w-full px-2 white-text bg-neutral-700 border-2 border-neutral-700 hover:border-neutral-500 rounded-md"
+            onChange={handleChange}
+            value={todo}
+          />
+          <button 
+            className={`white-text h-2 py-6 px-8 flex justify-evenly items-center rounded-md bg-neutral-700 ${todo === "" ? "cursor-not-allowed border-2 border-neutral-700 opacity-75" : "hover:border-neutral-500 border-2 border-neutral-700"}`}
+            disabled={todo === ""}
+          >
+            Create
+            <PlusCircle size={24} className="ml-2" />
+          </button>
+        </form>
+      </div>
+      <div className="w-8/12 h-3/4 flex flex-col items-start -mt-20">
         <div className="w-full flex flex-row items-center justify-between mb-6">
           <p
             className="flex items-center justify-center text-neutral-100 font-medium"
