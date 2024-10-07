@@ -13,7 +13,8 @@ export default function Home() {
     async function getData() {
       const { data, error } = await supabase
         .from('todo')
-        .select('*');
+        .select('*')
+        .order('created_at', {ascending: false});
       if (error) {
         console.error(error)
       } else {
