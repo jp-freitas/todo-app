@@ -2,34 +2,36 @@
 import { supabase } from "@/lib/supabase";
 import { Todo } from "@/types/todo";
 import { Check, ClipboardText, PlusCircle, Trash } from "phosphor-react";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 export default function Home() {
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState<Todo[]>([]);
   const completedTodos = todos.filter(todo => todo.is_complete === true);
-  
-  useEffect(() => {
-    async function getData() {
-      const { data, error } = await supabase
-        .from('todo')
-        .select('*')
-        .order('created_at', {ascending: false});
-      if (error) {
-        console.error(error)
-      } else {
-        setTodos(data);
-      }
-    }
 
+  useEffect(() => {
     getData();
-  }, [todos]);
+  }, []);
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setTodo(event.target.value);
   }
 
-  async function createTodo() {
+  async function getData() {
+    const { data, error } = await supabase
+      .from('todo')
+      .select('*')
+      .order('created_at', {ascending: false});
+    if (error) {
+      console.error(error)
+    } else {
+      setTodos(data);
+    }
+  }
+
+  async function createTodo(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
     if(!todo) {
       console.log("The input of the task is empty");
       return;
@@ -42,33 +44,32 @@ export default function Home() {
           task: todo
         }
       ])
-      .select();
+      .select()
+      .single();
     if (error) { 
       console.error(error)
     } else { 
-      console.log(data)
+      setTodos((prev) => [...prev, data]);
+      setTodo("");
     };
-    setTodo("");    
   };
 
-  async function handleCompleteTodo(id: string) {
-    const findedTodo = todos.find((todo: Todo) =>  todo.id === id);
-
-    if (!findedTodo) {
-      throw new Error("Todo not found!");
-    }
-
-    const { error } = await supabase
+  async function handleCompleteTodo(id: string, isComplete: boolean) {
+    console.log(todos);
+    const { data, error } = await supabase
       .from('todo')
       .update({ 
-        is_complete: !findedTodo.is_complete,
+        is_complete: !isComplete,
         updated_at: new Date().toISOString()
       })
       .eq("id", id)
-      .select();
+      .select()
+      .single();
     if (error) {
       console.error(error);
-    } 
+    } else {
+      setTodos(todos.map(todo => todo.id === id ? data : todo));
+    }
   }
   
   async function handleDeleteTodo(id: string) {
@@ -84,6 +85,8 @@ export default function Home() {
       .eq("id", id);
     if (error) {
       console.error(error);
+    } else {
+      setTodos(todos.filter(todo => todo.id !== id));
     }
   }
 
@@ -103,7 +106,7 @@ export default function Home() {
           </span>
         </h1>
       </div>
-      <div className="w-8/12 h-1/4 -m-7 z-10">
+      <div className="w-7/12 h-1/4 -m-7 z-10">
         <form 
           onSubmit={createTodo}
           className="flex justify-between items-center gap-2"
@@ -125,7 +128,7 @@ export default function Home() {
           </button>
         </form>
       </div>
-      <div className="w-8/12 h-3/4 flex flex-col items-start -mt-20">
+      <div className="w-7/12 h-3/4 flex flex-col items-start -mt-20 z-10">
         <div className="w-full flex flex-row items-center justify-between mb-6">
           <p
             className="flex items-center justify-center text-neutral-100 font-medium"
@@ -158,7 +161,7 @@ export default function Home() {
               >
                 <button 
                   className={`${todo.is_complete ? "mr-4 p-1 bg-neutral-950 border-2 border-neutral-950 text-neutral-500 rounded-full flex items-center justify-center hover:border-neutral-500" : "mr-4 p-2.5 bg-transparent border-2 border-neutral-500 rounded-full hover:border-neutral-500"} border-neutral-500`}
-                  onClick={() => handleCompleteTodo(todo.id)}
+                  onClick={() => handleCompleteTodo(todo.id, todo.is_complete)}
                 >
                   {todo.is_complete && <Check size={16} weight="bold" />}
                 </button>
