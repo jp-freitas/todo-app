@@ -1,9 +1,10 @@
 'use client'
 import { supabase } from '@/lib/supabase'
 import { TodoType } from '@/types/todo'
-import { ClipboardText, PlusCircle } from 'phosphor-react'
+import { PlusCircle } from 'phosphor-react'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { Todo } from '@/app/components/Todo'
+import EmptyTodo from './components/EmptyTodo'
 
 export default function Home() {
   const [todo, setTodo] = useState('')
@@ -136,13 +137,7 @@ export default function Home() {
           </p>
         </div>
         {todos.length === 0 ? (
-          <div className="w-full h-full mt-6 py-24 px-4 flex flex-col items-center justify-center border-t-2 border-t-neutral-500 text-neutral-600">
-            <ClipboardText size={64} />
-            <p className="mt-4 font-bold">You do not have any todos created.</p>
-            <p className="mt-1 font-normal">
-              Create todos and organize your todo items.
-            </p>
-          </div>
+          <EmptyTodo />
         ) : (
           todos.map((todo) => {
             return (
