@@ -5,6 +5,7 @@ import { PlusCircle } from 'phosphor-react'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { Todo } from '@/app/components/Todo'
 import EmptyTodo from './components/EmptyTodo'
+import Header from './components/Header'
 
 export default function Home() {
   const [todo, setTodo] = useState('')
@@ -91,12 +92,7 @@ export default function Home() {
 
   return (
     <>
-      <header>
-        <nav>
-          <a href="/">Home</a>
-          <a href="/auth">Sign In & Sign Up</a>
-        </nav>
-      </header>
+      <Header />
       <div className="w-full h-screen flex flex-col justify-center items-center">
         <div className="w-full h-[12.5rem] flex items-center justify-center flex-row bg-neutral-800 z-10">
           <h1 className="font-bold text-[250%] text-neutral-950">
