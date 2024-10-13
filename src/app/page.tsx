@@ -2,10 +2,12 @@
 import { supabase } from '@/lib/supabase'
 import { TodoType } from '@/types/todo'
 import { PlusCircle } from 'phosphor-react'
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { Todo } from '@/app/components/Todo'
 import EmptyTodo from './components/EmptyTodo'
 import Header from './components/Header'
+import Input from './components/Input'
+import Button from './components/Button'
 
 export default function Home() {
   const [todo, setTodo] = useState('')
@@ -15,10 +17,6 @@ export default function Home() {
   useEffect(() => {
     getData()
   }, [])
-
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    setTodo(event.target.value)
-  }
 
   async function getData() {
     const { data, error } = await supabase
@@ -103,23 +101,16 @@ export default function Home() {
         <div className="w-7/12 h-1/4 -m-7 z-10">
           <form
             onSubmit={createTodo}
-            className="flex justify-between items-center gap-2"
+            className="flex justify-center items-center gap-2"
           >
-            <input
+            <Input
               name="todo"
               type="text"
-              placeholder="Enter your task here"
-              className="h-2 py-6 w-full px-2 white-text bg-neutral-700 border-2 border-neutral-700 hover:border-neutral-500 rounded-md"
-              onChange={handleChange}
+              placeholder="Enter your to-do here."
+              onChange={(event) => setTodo(event.target.value)}
               value={todo}
             />
-            <button
-              className={`white-text h-2 py-6 px-8 flex justify-evenly items-center rounded-md bg-neutral-700 ${todo === '' ? 'cursor-not-allowed border-2 border-neutral-700 opacity-75' : 'hover:border-neutral-500 border-2 border-neutral-700'}`}
-              disabled={todo === ''}
-            >
-              Create
-              <PlusCircle size={24} className="ml-2" />
-            </button>
+            <Button type="submit" text="Create" disabled={todo === ''} />
           </form>
         </div>
         <div className="w-7/12 h-3/4 flex flex-col items-start -mt-20 z-10">

@@ -1,12 +1,15 @@
 'use client'
 
 import { FormEvent, useState } from 'react'
+
 import Input from '../components/Input'
 import Button from '../components/Button'
+import { useRouter } from 'next/navigation'
 
 export default function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const router = useRouter()
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -25,7 +28,7 @@ export default function SignIn() {
           Please enter your credentials to sign in in the application
         </p>
         <form
-          className="w-full flex items-center justify-center flex-col mx-4"
+          className="w-full flex items-center justify-center gap-4 flex-col m-4"
           onSubmit={handleSubmit}
         >
           <Input
@@ -44,17 +47,21 @@ export default function SignIn() {
             onChange={(event) => setPassword(event.target.value)}
             value={password}
           />
-          <a className="mt-6 text-neutral-900 font-semibold mx-4" href="">
+          <a className="text-neutral-900 font-semibold mx-4" href="">
             Forgot your password?
           </a>
-          <p className="mt-2 font-semibold text-neutral-400 mx-4">
+          <p className="font-semibold text-neutral-400 mx-4">
             Doesn&apos;t have an account?{' '}
             <a className="text-neutral-900" href="">
               Sign Up
             </a>
           </p>
           <div className="w-full flex items-center justify-end flex-row mt-6 gap-4 mx-4">
-            <Button text="Back" type="button" />
+            <Button
+              text="Back"
+              type="button"
+              onClick={() => router.push('/')}
+            />
             <Button text="Sign in" type="submit" />
           </div>
         </form>

@@ -8,7 +8,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export default function Input({ label, onChange, ...rest }: InputProps) {
   return (
-    <div className="w-full flex items-center justify-center flex-col mt-6 hover:opacity-85">
+    <div className="w-full flex items-center justify-center flex-col hover:opacity-85">
       {label && (
         <label
           className="w-full text-neutral-300 font-semibold"
