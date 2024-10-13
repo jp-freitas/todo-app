@@ -1,6 +1,7 @@
 'use client'
 
 import { FormEvent, useState } from 'react'
+import Input from '../components/Input'
 
 export default function SignIn() {
   const [email, setEmail] = useState('')
@@ -8,74 +9,61 @@ export default function SignIn() {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    console.log(email, password)
     setEmail('')
     setPassword('')
   }
 
   return (
-    <main className="w-screen h-screen flex items-center justify-center">
-      <div className="flex flex-col items-center justify-center p-8 rounded-md bg-neutral-700">
-        <h1 className="text-neutral-300 text-3xl">Sign In</h1>
-        <p className="text-neutral-400 text-base font-light mt-2">
+    <main className="w-screen h-screen flex items-center justify-center px-4">
+      <div className="flex flex-col items-center justify-center p-10 rounded-md bg-neutral-700">
+        <h1 className="text-neutral-300 text-3xl font-semibold mx-4">
+          Sign In
+        </h1>
+        <p className="text-neutral-400 text-base font-normal mt-2">
           Please enter your credentials to sign in in the application
         </p>
         <form
-          className="w-full flex items-center justify-center flex-col"
+          className="w-full flex items-center justify-center flex-col mx-4"
           onSubmit={handleSubmit}
         >
-          <div className="w-full flex items-center justify-center flex-col mt-6">
-            <label
-              className="w-full text-neutral-300 font-semibold"
-              htmlFor="email"
-            >
-              E-mail
-            </label>
-            <input
-              className="w-full px-2 py-3 bg-neutral-500 text-neutral-900 font-semibold placeholder:text-neutral-700 flex items-center rounded-md"
-              name="email"
-              value={email}
-              placeholder="your.email@email.com"
-              type="email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="w-full flex items-center justify-center flex-col mt-6">
-            <label
-              className="w-full text-neutral-300 font-semibold"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <input
-              className="w-full px-2 py-3 bg-neutral-500 text-neutral-900 font-semibold placeholder:text-neutral-700 flex items-center rounded-md"
-              name="password"
-              placeholder="***********"
-              value={password}
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <a className="mt-6 text-neutral-900 font-semibold" href="">
-              Forgot your password?
+          <Input
+            label="E-mail"
+            name="email"
+            type="email"
+            placeholder="your.email@email.com"
+            onChange={(event) => setEmail(event.target.value)}
+            value={email}
+          />
+          <Input
+            label="Password"
+            name="password"
+            type="password"
+            placeholder="********"
+            onChange={(event) => setPassword(event.target.value)}
+            value={password}
+          />
+          <a className="mt-6 text-neutral-900 font-semibold mx-4" href="">
+            Forgot your password?
+          </a>
+          <p className="mt-2 font-semibold text-neutral-400 mx-4">
+            Doesn&apos;t have an account?{' '}
+            <a className="text-neutral-900" href="">
+              Sign Up
             </a>
-            <p className="mt-2 font-semibold text-neutral-300">
-              Doesn&apos;t have an account?{' '}
-              <a className="text-neutral-900" href="">
-                Sign Up
-              </a>
-            </p>
-          </div>
-          <div className="w-full flex items-center justify-between flex-row mt-6 gap-6">
+          </p>
+          <div className="w-full flex items-center justify-end flex-row mt-6 gap-4 mx-4">
             <button
               type="button"
-              className="text-neutral-300 font-semibold h-2 py-6 px-6 w-full flex justify-evenly items-center rounded-md bg-neutral-500 hover:opacity-85"
+              className="text-neutral-400 font-semibold h-2 py-6 px-8 flex justify-evenly items-center rounded-md bg-neutral-800 hover:opacity-85"
             >
               Back
             </button>
             <button
               type="submit"
-              className="text-neutral-300 font-semibold h-2 py-6 px-6 w-full flex justify-evenly items-center rounded-md bg-neutral-500 hover:opacity-85"
+              className="text-neutral-400 font-semibold h-2 py-6 px-8 flex justify-evenly items-center rounded-md bg-neutral-800 hover:opacity-85"
             >
-              Sign In
+              Sign in
             </button>
           </div>
         </form>
