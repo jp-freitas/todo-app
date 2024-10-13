@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from 'react'
 import Input from '../components/Input'
+import Button from '../components/Button'
 
 export default function SignIn() {
   const [email, setEmail] = useState('')
@@ -53,18 +54,8 @@ export default function SignIn() {
             </a>
           </p>
           <div className="w-full flex items-center justify-end flex-row mt-6 gap-4 mx-4">
-            <button
-              type="button"
-              className="text-neutral-400 font-semibold h-2 py-6 px-8 flex justify-evenly items-center rounded-md bg-neutral-800 hover:opacity-85"
-            >
-              Back
-            </button>
-            <button
-              type="submit"
-              className="text-neutral-400 font-semibold h-2 py-6 px-8 flex justify-evenly items-center rounded-md bg-neutral-800 hover:opacity-85"
-            >
-              Sign in
-            </button>
+            <Button text="Back" type="button" />
+            <Button text="Sign in" type="submit" />
           </div>
         </form>
       </div>
