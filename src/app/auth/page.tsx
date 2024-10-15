@@ -47,12 +47,15 @@ export default function SignIn() {
             onChange={(event) => setPassword(event.target.value)}
             value={password}
           />
-          <a className="text-neutral-900 font-semibold mx-4" href="">
+          <a
+            className="text-neutral-900 font-semibold mx-4 hover:opacity-75"
+            href=""
+          >
             Forgot your password?
           </a>
           <p className="font-semibold text-neutral-400 mx-4">
             Doesn&apos;t have an account?{' '}
-            <a className="text-neutral-900" href="">
+            <a className="text-neutral-900 hover:opacity-75" href="">
               Sign Up
             </a>
           </p>

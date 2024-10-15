@@ -1,7 +1,6 @@
 'use client'
 import { supabase } from '@/lib/supabase'
 import { TodoType } from '@/types/todo'
-import { PlusCircle } from 'phosphor-react'
 import { FormEvent, useEffect, useState } from 'react'
 import { Todo } from '@/app/components/Todo'
 import EmptyTodo from './components/EmptyTodo'
