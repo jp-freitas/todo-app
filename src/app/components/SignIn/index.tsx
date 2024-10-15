@@ -15,12 +15,14 @@ export default function SignIn() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<SignInFormData>({
     resolver: zodResolver(signInSchema),
   })
   const router = useRouter()
 
   function onSubmit(data: SignInFormData) {
+    reset()
     console.log(data)
   }
 
