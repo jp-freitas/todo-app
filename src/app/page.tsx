@@ -101,6 +101,7 @@ export default function Home() {
           <form
             onSubmit={createTodo}
             className="flex justify-center items-center gap-2"
+            autoComplete="off"
           >
             <Input
               name="todo"
