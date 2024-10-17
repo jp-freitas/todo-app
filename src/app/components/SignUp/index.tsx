@@ -4,42 +4,70 @@ import { useRouter } from 'next/navigation'
 import { z } from 'zod'
 import Input from '../Input'
 import Button from '../Button'
-import { signInSchema } from '@/lib/authSchema'
+import { signUpSchema } from '@/lib/authSchema'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
+import { supabase } from '@/lib/supabase'
 
-type SignInFormData = z.infer<typeof signInSchema>
+type SignInFormData = z.infer<typeof signUpSchema>
 
-export default function SignIn() {
+export default function SignUp() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<SignInFormData>({
-    resolver: zodResolver(signInSchema),
+    resolver: zodResolver(signUpSchema),
   })
-  const router = useRouter()
 
-  function onSubmit(data: SignInFormData) {
-    reset()
-    console.log(data)
+  async function onSubmit(data: SignInFormData) {
+    setIsLoading(!isLoading)
+
+    const { error } = await supabase.auth.signUp({
+      email: data.email,
+      password: data.password,
+      options: {
+        data: {
+          first_name: data.name,
+        },
+      },
+    })
+
+    setIsLoading(!isLoading)
+
+    if (error) {
+      console.error(error)
+    }
+
+    router.push('/')
   }
 
   return (
     <main className="w-screen h-screen flex items-center justify-center px-4">
       <div className="flex flex-col items-center justify-center p-10 rounded-md bg-neutral-700">
         <h1 className="text-neutral-300 text-3xl font-semibold mx-4">
-          Sign In
+          Sign Up
         </h1>
         <p className="text-neutral-400 text-base font-normal mt-2">
-          Please enter your credentials to sign in in the application
+          Please enter your credentials to sign in up the application
         </p>
         <form
           className="w-full flex justify-center gap-3 flex-col m-4"
           onSubmit={handleSubmit(onSubmit)}
           autoComplete="off"
         >
+          <Input
+            label="Name"
+            type="text"
+            placeholder="Type your name here."
+            {...register('name')}
+          />
+          {errors.name && (
+            <p className="text-red-600 text-xs -mt-2">{errors.name.message}</p>
+          )}
           <Input
             label="E-mail"
             type="email"
@@ -60,25 +88,19 @@ export default function SignIn() {
               {errors.password.message}
             </p>
           )}
-          <a
-            className="w-full flex items-center justify-center text-neutral-900 font-semibold mx-4 hover:opacity-75"
-            href=""
-          >
-            Forgot your password?
-          </a>
-          <p className="w-full flex items-center justify-center font-semibold text-neutral-400 mx-4 gap-1">
-            Doesn&apos;t have an account?{' '}
-            <a className="text-neutral-900 hover:opacity-75" href="/signup">
-              Sign Up
-            </a>
-          </p>
+          <Input
+            label="Confirmation Password"
+            type="password"
+            placeholder="Type your confirmation password here."
+            {...register('confirmPassword')}
+          />
+          {errors.confirmPassword && (
+            <p className="text-red-600 text-xs -mt-2">
+              {errors.confirmPassword.message}
+            </p>
+          )}
           <div className="w-full flex items-center justify-end flex-row mt-6 gap-4 mx-4">
-            <Button
-              text="Back"
-              type="button"
-              onClick={() => router.push('/')}
-            />
-            <Button text="Sign in" type="submit" />
+            <Button text="Sign up" type="submit" />
           </div>
         </form>
       </div>
