@@ -7,6 +7,7 @@ import Button from '../Button'
 import { signInSchema } from '@/lib/authSchema'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useAuth } from '@/hooks/useAuth'
 
 type SignInFormData = z.infer<typeof signInSchema>
 
@@ -20,10 +21,13 @@ export default function SignIn() {
     resolver: zodResolver(signInSchema),
   })
   const router = useRouter()
+  const { signIn } = useAuth()
 
-  function onSubmit(data: SignInFormData) {
+  async function onSubmit(form: SignInFormData) {
+    const { email, password } = form
+    signIn(email, password)
     reset()
-    console.log(data)
+    router.push('/')
   }
 
   return (

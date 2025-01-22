@@ -8,12 +8,13 @@ import { signUpSchema } from '@/lib/authSchema'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
-import { supabase } from '@/lib/supabase'
+import { useAuth } from '@/hooks/useAuth'
 
 type SignInFormData = z.infer<typeof signUpSchema>
 
 export default function SignUp() {
   const router = useRouter()
+  const { signUp } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
   const {
     register,
@@ -24,25 +25,13 @@ export default function SignUp() {
   })
 
   async function onSubmit(data: SignInFormData) {
-    setIsLoading(!isLoading)
-
-    const { error } = await supabase.auth.signUp({
-      email: data.email,
-      password: data.password,
-      options: {
-        data: {
-          first_name: data.name,
-        },
-      },
-    })
-
-    setIsLoading(!isLoading)
-
-    if (error) {
-      console.error(error)
+    setIsLoading(true)
+    const { email, password, name } = data
+    if (data.email && data.password && data.name) {
+      signUp(email, password, name)
+      setIsLoading(false)
+      router.push('/')
     }
-
-    router.push('/')
   }
 
   return (
@@ -100,7 +89,7 @@ export default function SignUp() {
             </p>
           )}
           <div className="w-full flex items-center justify-end flex-row mt-6 gap-4 mx-4">
-            <Button text="Sign up" type="submit" />
+            <Button text="Sign up" type="submit" disabled={isLoading} />
           </div>
         </form>
       </div>

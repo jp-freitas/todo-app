@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { AuthProvider } from '@/context/authContext'
 
 export const metadata: Metadata = {
   title: 'toDo',
@@ -16,7 +17,7 @@ export default function RootLayout({
       <body
         className={`antialiased min-h-screen max-w-full flex-col justify-center items-center`}
       >
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   )
