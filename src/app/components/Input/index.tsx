@@ -9,14 +9,14 @@ function Input({ label, ...rest }: InputProps, ref: Ref<HTMLInputElement>) {
     <div className="w-full flex items-center justify-center flex-col hover:opacity-85">
       {label && (
         <label
-          className="w-full text-neutral-300 font-semibold"
+          className="w-full text-slate-300 font-semibold"
           htmlFor={rest.name}
         >
           {label}
         </label>
       )}
       <input
-        className="w-full px-2 py-3 flex items-start justify-center bg-neutral-500 text-neutral-900 font-semibold placeholder:text-neutral-700 rounded-md"
+        className="w-full px-2 py-3 flex items-start justify-center bg-slate-500 text-slate-900 font-semibold placeholder:text-slate-700 rounded-md"
         {...rest}
         ref={ref}
       />

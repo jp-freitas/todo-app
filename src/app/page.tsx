@@ -7,11 +7,13 @@ import EmptyTodo from './components/EmptyTodo'
 import Header from './components/Header'
 import Input from './components/Input'
 import Button from './components/Button'
+import { useAuth } from '@/hooks/useAuth'
 
 export default function Home() {
   const [todo, setTodo] = useState('')
   const [todos, setTodos] = useState<TodoType[]>([])
   const completedTodos = todos.filter((todo) => todo.is_complete === true)
+  const { user } = useAuth()
 
   useEffect(() => {
     getData()
@@ -21,6 +23,7 @@ export default function Home() {
     const { data, error } = await supabase
       .from('todos')
       .select('*')
+      .eq('user_id', user?.id)
       .order('created_at', { ascending: false })
     if (error) {
       console.error(error)
@@ -42,6 +45,7 @@ export default function Home() {
       .insert([
         {
           task: todo,
+          user_id: user?.id,
         },
       ])
       .select()
@@ -89,12 +93,11 @@ export default function Home() {
 
   return (
     <>
-      <Header />
       <div className="w-full h-screen flex flex-col justify-center items-center">
-        <div className="w-full h-[12.5rem] flex items-center justify-center flex-row bg-neutral-800 z-10">
-          <h1 className="font-bold text-[250%] text-neutral-950">
+        <div className="w-full h-[12.5rem] flex items-center justify-center flex-row bg-slate-800 z-10">
+          <h1 className="font-bold text-[250%] text-slate-500">
             to
-            <span className="text-neutral-100">do</span>
+            <span className="text-slate-100">do</span>
           </h1>
         </div>
         <div className="w-7/12 h-1/4 -m-7 z-10">
@@ -115,15 +118,15 @@ export default function Home() {
         </div>
         <div className="w-7/12 h-3/4 flex flex-col items-start -mt-20 z-10">
           <div className="w-full flex flex-row items-center justify-between mb-6">
-            <p className="flex items-center justify-center text-neutral-100 font-medium">
+            <p className="flex items-center justify-center text-slate-100 font-medium">
               {`${todos.length > 1 ? 'Todos created' : 'Todo created'}`}
-              <span className="text-neutral-950 bg-neutral-600 font-bold text-xs py-0.5 px-2 rounded-2xl ml-1">
+              <span className="text-slate-950 bg-slate-600 font-bold text-xs py-0.5 px-2 rounded-2xl ml-1">
                 {todos.length}
               </span>
             </p>
             <p className="">
               Completed{' '}
-              <span className="text-neutral-950 bg-neutral-600 font-bold text-xs py-0.5 px-2 rounded-2xl ml-1">
+              <span className="text-slate-950 bg-slate-600 font-bold text-xs py-0.5 px-2 rounded-2xl ml-1">
                 {todos.length >= 1
                   ? `${completedTodos.length} of ${todos.length}`
                   : `${todos.length}`}
