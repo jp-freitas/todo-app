@@ -2,6 +2,7 @@ import { TaskType } from '../@types/task';
 import { Task } from './Task';
 import styles from './TasksTable.module.css';
 import { WithoutTasks } from './WithoutTasks';
+import React, { useRef } from 'react';
 
 interface TasksTableProps {
   tasks: TaskType[];
@@ -11,6 +12,8 @@ interface TasksTableProps {
 export function TasksTable({ tasks, setTasks }: TasksTableProps) {
   const completedTasks = tasks.filter(task => task.isComplete === true);
   const classTasksList = tasks.length <= 3 ? styles.noScroll : styles.tasksList;
+  const dragItem = useRef<number | null>(null);
+  const dragOverItem = useRef<number | null>(null);
 
   function handleCompleteTask(id: string) {
     const completeTask = tasks.map(
@@ -27,6 +30,24 @@ export function TasksTable({ tasks, setTasks }: TasksTableProps) {
     setTasks([...tasks]);
   }
 
+  function handleDragStart(index: number) {
+    dragItem.current = index;
+  }
+
+  function handleDragEnter(index: number) {
+    dragOverItem.current = index;
+  }
+
+  function handleDragEnd() {
+    const copyTasks = [...tasks];
+    const dragItemContent = copyTasks[dragItem.current!];
+    copyTasks.splice(dragItem.current!, 1);
+    copyTasks.splice(dragOverItem.current!, 0, dragItemContent);
+    setTasks(copyTasks);
+    dragItem.current = null;
+    dragOverItem.current = null;
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -39,18 +60,26 @@ export function TasksTable({ tasks, setTasks }: TasksTableProps) {
           :
           <div className={classTasksList}>
             {
-              tasks.map((task) => {
-                return (
+              tasks.map((task, i) => (
+                <div
+                  key={task.id}
+                  id='div_task'
+                  draggable
+                  onDragStart={() => handleDragStart(i)}
+                  onDragEnter={() => handleDragEnter(i)}
+                  onDragEnd={handleDragEnd}
+                  onDragOver={(e) => e.preventDefault()}
+                  className={styles.taskItem}
+                >
                   <Task
-                    key={task.id}
                     id={task.id}
                     name={task.name}
                     isComplete={task.isComplete}
                     handleCompleteTask={handleCompleteTask}
                     handleDeleteTask={handleDeleteTask}
                   />
-                )
-              })
+                </div>
+              ))
             }
           </div>
       }
